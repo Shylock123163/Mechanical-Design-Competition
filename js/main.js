@@ -129,7 +129,7 @@ backToTop.addEventListener('click', () => {
 
 // ===== 滚动动画 =====
 function revealOnScroll() {
-    const elements = document.querySelectorAll('.team-card, .project-card, .doc-item, .timeline-item, .gallery-item');
+    const elements = document.querySelectorAll('.team-card, .project-card, .gallery-item');
 
     elements.forEach(el => {
         const elementTop = el.getBoundingClientRect().top;
@@ -143,7 +143,7 @@ function revealOnScroll() {
 }
 
 // 初始化元素状态
-document.querySelectorAll('.team-card, .project-card, .doc-item, .timeline-item, .gallery-item').forEach(el => {
+document.querySelectorAll('.team-card, .project-card, .gallery-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'all 0.6s ease';
@@ -226,6 +226,7 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         updateConfigButton();
         loadConfigToForm();
         bindEvents();
+        loadAllDirectoryStats(); // 加载所有目录统计
     }
 
     // 更新配置按钮状态
@@ -233,9 +234,47 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         if (githubAPI.isConfigured()) {
             configBtn.classList.add('configured');
             configBtn.title = 'GitHub 已配置';
+            loadAllDirectoryStats(); // 配置成功后刷新统计
         } else {
             configBtn.classList.remove('configured');
             configBtn.title = 'GitHub 配置';
+        }
+    }
+
+    // 加载所有目录的统计信息
+    async function loadAllDirectoryStats() {
+        if (!githubAPI.isConfigured()) {
+            // 未配置时显示提示
+            document.querySelectorAll('.file-count').forEach(el => {
+                el.textContent = '请先配置';
+            });
+            document.querySelectorAll('.update-time').forEach(el => {
+                el.textContent = '';
+            });
+            return;
+        }
+
+        const paths = ['files/design', 'files/bom', 'files/code', 'files/docs', 'files/media', 'files/ppt'];
+
+        for (const path of paths) {
+            loadDirectoryStats(path);
+        }
+    }
+
+    // 加载单个目录的统计信息
+    async function loadDirectoryStats(path) {
+        const countEl = document.querySelector(`.file-count[data-path="${path}"]`);
+        const timeEl = document.querySelector(`.update-time[data-path="${path}"]`);
+
+        if (!countEl || !timeEl) return;
+
+        try {
+            const stats = await githubAPI.getDirectoryStats(path);
+            countEl.textContent = `${stats.count} 个文件`;
+            timeEl.textContent = stats.lastUpdate ? `更新于 ${githubAPI.formatDate(stats.lastUpdate)}` : '暂无文件';
+        } catch (error) {
+            countEl.textContent = '0 个文件';
+            timeEl.textContent = '暂无文件';
         }
     }
 
@@ -493,10 +532,11 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         // 清空文件输入
         fileInput.value = '';
 
-        // 刷新文件列表
+        // 刷新文件列表和统计
         if (fileListModal.classList.contains('active')) {
             loadFileList(currentPath);
         }
+        loadDirectoryStats(currentPath);
     }
 
     // 上传单个文件
@@ -542,6 +582,7 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
             await githubAPI.deleteFile(path, sha);
             showToast(`${name} 已删除`, 'success');
             loadFileList(currentPath);
+            loadDirectoryStats(currentPath); // 刷新统计
         } catch (error) {
             showToast('删除失败: ' + error.message, 'error');
         }

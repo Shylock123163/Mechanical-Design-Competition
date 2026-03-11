@@ -251,6 +251,47 @@ class GitHubAPI {
             return null;
         }
     }
+
+    // 获取目录统计信息（文件数量和最后更新时间）
+    async getDirectoryStats(path) {
+        if (!this.isConfigured()) {
+            return { count: 0, lastUpdate: null };
+        }
+
+        try {
+            // 获取文件列表
+            const files = await this.getFileList(path);
+            const fileCount = files.filter(f => f.type === 'file').length;
+
+            // 获取最后一次提交时间
+            const commitsUrl = `${this.baseUrl}/repos/${this.owner}/${this.repo}/commits?path=${path}&per_page=1`;
+            const response = await fetch(commitsUrl, {
+                headers: this.getHeaders()
+            });
+
+            let lastUpdate = null;
+            if (response.ok) {
+                const commits = await response.json();
+                if (commits.length > 0) {
+                    lastUpdate = new Date(commits[0].commit.committer.date);
+                }
+            }
+
+            return { count: fileCount, lastUpdate };
+        } catch (error) {
+            console.error('获取目录统计错误:', error);
+            return { count: 0, lastUpdate: null };
+        }
+    }
+
+    // 格式化日期
+    formatDate(date) {
+        if (!date) return '--';
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 }
 
 // 创建全局实例
