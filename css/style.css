@@ -185,7 +185,15 @@ body {
 }
 
 .hero-title {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.title-logo {
+    height: 33vh;
+    width: auto;
+    max-width: 90vw;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(88, 166, 255, 0.5));
 }
 
 .title-line {
