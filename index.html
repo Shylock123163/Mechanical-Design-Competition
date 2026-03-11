@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机械设计大赛 - 团队资料库</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">⚙️</span>
+            <span class="brand-text">机械设计大赛</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#team">团队介绍</a></li>
+            <li><a href="#projects">项目资料</a></li>
+            <li><a href="#documents">文档中心</a></li>
+            <li><a href="#gallery">作品展示</a></li>
+            <li><a href="#timeline">进度追踪</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- 主页横幅 -->
+    <section id="home" class="hero">
+        <div class="hero-particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">创新设计</span>
+                <span class="title-line highlight">智造未来</span>
+            </h1>
+            <p class="hero-subtitle">机械设计大赛团队资料管理平台</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="5">0</span>
+                    <span class="stat-label">团队成员</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="12">0</span>
+                    <span class="stat-label">项目文档</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="3">0</span>
+                    <span class="stat-label">设计方案</span>
+                </div>
+            </div>
+            <a href="#projects" class="hero-btn">查看项目</a>
+        </div>
+        <div class="hero-decoration">
+            <div class="gear gear-1"></div>
+            <div class="gear gear-2"></div>
+            <div class="gear gear-3"></div>
+        </div>
+    </section>
+
+    <!-- 团队介绍 -->
+    <section id="team" class="section team-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">👥</span>
+                团队介绍
+            </h2>
+            <p class="section-desc">我们是一支充满激情与创造力的机械设计团队</p>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="card-avatar">
+                        <div class="avatar-placeholder">队长</div>
+                    </div>
+                    <h3 class="card-name">朱元博</h3>
+                    <p class="card-role">队长 </p>
+                    <p class="card-desc">负责整体方案设计与团队协调</p>
+                </div>
+                <div class="team-card">
+                    <div class="card-avatar">
+                        <div class="avatar-placeholder">结构</div>
+                    </div>
+                    <h3 class="card-name">张博磊</h3>
+                    <p class="card-role">结构设计</p>
+                    <p class="card-desc">负责机械结构设计与建模</p>
+                </div>
+                <div class="team-card">
+                    <div class="card-avatar">
+                        <div class="avatar-placeholder">电控</div>
+                    </div>
+                    <h3 class="card-name">张馨文</h3>
+                    <p class="card-role">电控工程师</p>
+                    <p class="card-desc">负责电路设计与控制系统</p>
+                </div>
+                <div class="team-card">
+                    <div class="card-avatar">
+                        <div class="avatar-placeholder">编程</div>
+                    </div>
+                    <h3 class="card-name">钟佳磊</h3>
+                    <p class="card-role">软件开发</p>
+                    <p class="card-desc">负责程序编写与算法实现</p>
+                </div>
+                <div class="team-card">
+                    <div class="card-avatar">
+                        <div class="avatar-placeholder">文档</div>
+                    </div>
+                    <h3 class="card-name">林娜</h3>
+                    <p class="card-role">文档管理</p>
+                    <p class="card-desc">负责资料整理与文档撰写</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目资料 -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">📁</span>
+                项目资料
+            </h2>
+            <p class="section-desc">所有设计文件与技术资料集中管理</p>
+
+            <div class="project-categories">
+                <button class="category-btn active" data-category="all">全部</button>
+                <button class="category-btn" data-category="design">设计图纸</button>
+                <button class="category-btn" data-category="code">程序代码</button>
+                <button class="category-btn" data-category="docs">技术文档</button>
+                <button class="category-btn" data-category="media">媒体素材</button>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card" data-category="design">
+                    <div class="card-icon">📐</div>
+                    <h3>机械结构图</h3>
+                    <p>SolidWorks 三维模型与工程图</p>
+                    <div class="card-meta">
+                        <span class="file-count">15 个文件</span>
+                        <span class="update-time">更新于 2026-03-10</span>
+                    </div>
+                    <a href="files/design/" class="card-link">查看详情</a>
+                </div>
+                <div class="project-card" data-category="design">
+                    <div class="card-icon">🔧</div>
+                    <h3>零件清单</h3>
+                    <p>BOM表与采购清单</p>
+                    <div class="card-meta">
+                        <span class="file-count">3 个文件</span>
+                        <span class="update-time">更新于 2026-03-08</span>
+                    </div>
+                    <a href="files/bom/" class="card-link">查看详情</a>
+                </div>
+                <div class="project-card" data-category="code">
+                    <div class="card-icon">💻</div>
+                    <h3>控制程序</h3>
+                    <p>主控代码与驱动程序</p>
+                    <div class="card-meta">
+                        <span class="file-count">8 个文件</span>
+                        <span class="update-time">更新于 2026-03-11</span>
+                    </div>
+                    <a href="files/code/" class="card-link">查看详情</a>
+                </div>
+                <div class="project-card" data-category="docs">
+                    <div class="card-icon">📄</div>
+                    <h3>技术报告</h3>
+                    <p>设计说明书与答辩材料</p>
+                    <div class="card-meta">
+                        <span class="file-count">5 个文件</span>
+                        <span class="update-time">更新于 2026-03-09</span>
+                    </div>
+                    <a href="files/docs/" class="card-link">查看详情</a>
+                </div>
+                <div class="project-card" data-category="media">
+                    <div class="card-icon">🎬</div>
+                    <h3>演示视频</h3>
+                    <p>作品运行演示与讲解视频</p>
+                    <div class="card-meta">
+                        <span class="file-count">4 个文件</span>
+                        <span class="update-time">更新于 2026-03-07</span>
+                    </div>
+                    <a href="files/media/" class="card-link">查看详情</a>
+                </div>
+                <div class="project-card" data-category="docs">
+                    <div class="card-icon">📊</div>
+                    <h3>PPT演示</h3>
+                    <p>项目汇报与答辩PPT</p>
+                    <div class="card-meta">
+                        <span class="file-count">3 个文件</span>
+                        <span class="update-time">更新于 2026-03-06</span>
+                    </div>
+                    <a href="files/ppt/" class="card-link">查看详情</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文档中心 -->
+    <section id="documents" class="section documents-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">📚</span>
+                文档中心
+            </h2>
+            <p class="section-desc">快速访问重要文档与参考资料</p>
+
+            <div class="docs-grid">
+                <div class="doc-item">
+                    <div class="doc-icon">📋</div>
+                    <div class="doc-info">
+                        <h4>大赛规则手册</h4>
+                        <p>2026年机械设计大赛官方规则</p>
+                    </div>
+                    <a href="files/rules.pdf" class="doc-download" title="下载">⬇️</a>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon">📝</div>
+                    <div class="doc-info">
+                        <h4>设计任务书</h4>
+                        <p>项目设计要求与技术指标</p>
+                    </div>
+                    <a href="files/task.pdf" class="doc-download" title="下载">⬇️</a>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon">📖</div>
+                    <div class="doc-info">
+                        <h4>技术参考手册</h4>
+                        <p>常用元器件与材料参数</p>
+                    </div>
+                    <a href="files/reference.pdf" class="doc-download" title="下载">⬇️</a>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon">🗓️</div>
+                    <div class="doc-info">
+                        <h4>项目计划表</h4>
+                        <p>时间节点与任务分配</p>
+                    </div>
+                    <a href="files/schedule.xlsx" class="doc-download" title="下载">⬇️</a>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon">💰</div>
+                    <div class="doc-info">
+                        <h4>预算清单</h4>
+                        <p>项目经费使用明细</p>
+                    </div>
+                    <a href="files/budget.xlsx" class="doc-download" title="下载">⬇️</a>
+                </div>
+                <div class="doc-item">
+                    <div class="doc-icon">📑</div>
+                    <div class="doc-info">
+                        <h4>会议记录</h4>
+                        <p>团队讨论与决策记录</p>
+                    </div>
+                    <a href="files/meetings/" class="doc-download" title="查看">📂</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">🖼️</span>
+                作品展示
+            </h2>
+            <p class="section-desc">记录我们的设计成果与制作过程</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <div class="gallery-placeholder">
+                        <span>作品主图</span>
+                        <p>点击上传图片</p>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>作品整体效果</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>细节图1</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>结构细节</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>细节图2</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>传动机构</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>细节图3</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>控制系统</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>制作过程</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>加工制作</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <span>团队合影</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>团队风采</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 进度追踪 -->
+    <section id="timeline" class="section timeline-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">📅</span>
+                进度追踪
+            </h2>
+            <p class="section-desc">项目里程碑与关键节点</p>
+
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年1月</span>
+                        <h4>项目启动</h4>
+                        <p>组建团队，确定选题方向，完成初步调研</p>
+                    </div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年2月</span>
+                        <h4>方案设计</h4>
+                        <p>完成概念设计，确定技术路线，绘制草图</p>
+                    </div>
+                </div>
+                <div class="timeline-item active">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年3月</span>
+                        <h4>详细设计</h4>
+                        <p>三维建模，工程图绘制，零件选型</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年4月</span>
+                        <h4>加工制作</h4>
+                        <p>零件加工，组装调试，程序编写</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年5月</span>
+                        <h4>测试优化</h4>
+                        <p>功能测试，性能优化，问题修复</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2026年6月</span>
+                        <h4>比赛答辩</h4>
+                        <p>准备答辩材料，参加现场比赛</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">⚙️</span>
+                    <span>机械设计大赛团队</span>
+                </div>
+                <p class="footer-text">创新设计 · 智造未来</p>
+                <p class="footer-copyright">© 2026 All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部 -->
+    <button class="back-to-top" title="返回顶部">↑</button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
