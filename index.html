@@ -133,7 +133,7 @@
             </div>
 
             <div class="projects-grid">
-                <div class="project-card" data-category="design">
+                <div class="project-card" data-category="design" data-path="files/design">
                     <div class="card-icon">📐</div>
                     <h3>机械结构图</h3>
                     <p>SolidWorks 三维模型与工程图</p>
@@ -141,9 +141,12 @@
                         <span class="file-count">15 个文件</span>
                         <span class="update-time">更新于 2026-03-10</span>
                     </div>
-                    <a href="files/design/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/design" data-title="机械结构图">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/design">📤 上传</button>
+                    </div>
                 </div>
-                <div class="project-card" data-category="design">
+                <div class="project-card" data-category="design" data-path="files/bom">
                     <div class="card-icon">🔧</div>
                     <h3>零件清单</h3>
                     <p>BOM表与采购清单</p>
@@ -151,9 +154,12 @@
                         <span class="file-count">3 个文件</span>
                         <span class="update-time">更新于 2026-03-08</span>
                     </div>
-                    <a href="files/bom/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/bom" data-title="零件清单">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/bom">📤 上传</button>
+                    </div>
                 </div>
-                <div class="project-card" data-category="code">
+                <div class="project-card" data-category="code" data-path="files/code">
                     <div class="card-icon">💻</div>
                     <h3>控制程序</h3>
                     <p>主控代码与驱动程序</p>
@@ -161,9 +167,12 @@
                         <span class="file-count">8 个文件</span>
                         <span class="update-time">更新于 2026-03-11</span>
                     </div>
-                    <a href="files/code/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/code" data-title="控制程序">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/code">📤 上传</button>
+                    </div>
                 </div>
-                <div class="project-card" data-category="docs">
+                <div class="project-card" data-category="docs" data-path="files/docs">
                     <div class="card-icon">📄</div>
                     <h3>技术报告</h3>
                     <p>设计说明书与答辩材料</p>
@@ -171,9 +180,12 @@
                         <span class="file-count">5 个文件</span>
                         <span class="update-time">更新于 2026-03-09</span>
                     </div>
-                    <a href="files/docs/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/docs" data-title="技术报告">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/docs">📤 上传</button>
+                    </div>
                 </div>
-                <div class="project-card" data-category="media">
+                <div class="project-card" data-category="media" data-path="files/media">
                     <div class="card-icon">🎬</div>
                     <h3>演示视频</h3>
                     <p>作品运行演示与讲解视频</p>
@@ -181,9 +193,12 @@
                         <span class="file-count">4 个文件</span>
                         <span class="update-time">更新于 2026-03-07</span>
                     </div>
-                    <a href="files/media/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/media" data-title="演示视频">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/media">📤 上传</button>
+                    </div>
                 </div>
-                <div class="project-card" data-category="docs">
+                <div class="project-card" data-category="docs" data-path="files/ppt">
                     <div class="card-icon">📊</div>
                     <h3>PPT演示</h3>
                     <p>项目汇报与答辩PPT</p>
@@ -191,7 +206,10 @@
                         <span class="file-count">3 个文件</span>
                         <span class="update-time">更新于 2026-03-06</span>
                     </div>
-                    <a href="files/ppt/" class="card-link">查看详情</a>
+                    <div class="card-actions">
+                        <button class="btn-action btn-files" data-path="files/ppt" data-title="PPT演示">📂 查看文件</button>
+                        <button class="btn-action btn-upload" data-path="files/ppt">📤 上传</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -401,6 +419,110 @@
     <!-- 返回顶部 -->
     <button class="back-to-top" title="返回顶部">↑</button>
 
+    <!-- Token 配置按钮 -->
+    <button class="config-btn" id="configBtn" title="GitHub 配置">⚙️</button>
+
+    <!-- Token 配置模态框 -->
+    <div class="modal" id="configModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>GitHub 配置</h3>
+                <button class="modal-close" id="closeConfigModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="config-status" id="configStatus"></div>
+                <div class="form-group">
+                    <label for="githubOwner">仓库所有者 (用户名/组织名)</label>
+                    <input type="text" id="githubOwner" placeholder="例如: your-username">
+                </div>
+                <div class="form-group">
+                    <label for="githubRepo">仓库名称</label>
+                    <input type="text" id="githubRepo" placeholder="例如: robot_web">
+                </div>
+                <div class="form-group">
+                    <label for="githubToken">Personal Access Token</label>
+                    <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
+                    <small class="form-hint">
+                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=机械设计大赛网站" target="_blank">
+                            点击这里生成 Token
+                        </a>
+                        （需要勾选 repo 权限）
+                    </small>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="saveConfig">保存配置</button>
+                    <button class="btn btn-danger" id="clearConfig">清除配置</button>
+                </div>
+                <div class="config-guide">
+                    <h4>配置说明</h4>
+                    <ol>
+                        <li>访问 GitHub Settings → Developer settings → Personal access tokens</li>
+                        <li>点击 "Generate new token (classic)"</li>
+                        <li>勾选 "repo" 权限（完整仓库访问）</li>
+                        <li>生成后复制 Token 粘贴到上方输入框</li>
+                        <li>Token 仅保存在您的浏览器本地，不会上传到服务器</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文件列表模态框 -->
+    <div class="modal" id="fileListModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="fileListTitle">文件列表</h3>
+                <button class="modal-close" id="closeFileListModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="file-toolbar">
+                    <button class="btn btn-primary" id="uploadBtn">
+                        <span>📤</span> 上传文件
+                    </button>
+                    <button class="btn btn-secondary" id="refreshBtn">
+                        <span>🔄</span> 刷新
+                    </button>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                </div>
+                <div class="file-list-container">
+                    <div class="file-list" id="fileList">
+                        <!-- 文件列表将动态生成 -->
+                    </div>
+                    <div class="file-loading" id="fileLoading">
+                        <div class="spinner"></div>
+                        <span>加载中...</span>
+                    </div>
+                    <div class="file-empty" id="fileEmpty">
+                        <span>📂</span>
+                        <p>该目录暂无文件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 上传进度模态框 -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3>上传文件</h3>
+            </div>
+            <div class="modal-body">
+                <div class="upload-progress">
+                    <div class="upload-file-name" id="uploadFileName"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="upload-status" id="uploadStatus">准备上传...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/github-api.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
