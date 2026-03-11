@@ -48,33 +48,6 @@ function highlightNav() {
 
 window.addEventListener('scroll', highlightNav);
 
-// ===== 数字动画 =====
-function animateNumbers() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-
-    statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-count'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const updateNumber = () => {
-            current += step;
-            if (current < target) {
-                stat.textContent = Math.floor(current);
-                requestAnimationFrame(updateNumber);
-            } else {
-                stat.textContent = target;
-            }
-        };
-
-        updateNumber();
-    });
-}
-
-// 页面加载时启动数字动画
-window.addEventListener('load', animateNumbers);
-
 // ===== 项目分类筛选 =====
 const categoryBtns = document.querySelectorAll('.category-btn');
 const projectCards = document.querySelectorAll('.project-card');
@@ -251,14 +224,23 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
             document.querySelectorAll('.update-time').forEach(el => {
                 el.textContent = '';
             });
+            // 首页统计显示默认值
+            const statFiles = document.getElementById('statFiles');
+            if (statFiles) statFiles.textContent = '0';
             return;
         }
 
         const paths = ['files/design', 'files/bom', 'files/code', 'files/docs', 'files/media', 'files/ppt'];
+        let totalFiles = 0;
 
         for (const path of paths) {
-            loadDirectoryStats(path);
+            const count = await loadDirectoryStats(path);
+            totalFiles += count;
         }
+
+        // 更新首页统计
+        const statFiles = document.getElementById('statFiles');
+        if (statFiles) statFiles.textContent = totalFiles;
     }
 
     // 加载单个目录的统计信息
@@ -266,16 +248,19 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         const countEl = document.querySelector(`.file-count[data-path="${path}"]`);
         const timeEl = document.querySelector(`.update-time[data-path="${path}"]`);
 
-        if (!countEl || !timeEl) return;
+        let fileCount = 0;
 
         try {
             const stats = await githubAPI.getDirectoryStats(path);
-            countEl.textContent = `${stats.count} 个文件`;
-            timeEl.textContent = stats.lastUpdate ? `更新于 ${githubAPI.formatDate(stats.lastUpdate)}` : '暂无文件';
+            fileCount = stats.count;
+            if (countEl) countEl.textContent = `${stats.count} 个文件`;
+            if (timeEl) timeEl.textContent = stats.lastUpdate ? `更新于 ${githubAPI.formatDate(stats.lastUpdate)}` : '暂无文件';
         } catch (error) {
-            countEl.textContent = '0 个文件';
-            timeEl.textContent = '暂无文件';
+            if (countEl) countEl.textContent = '0 个文件';
+            if (timeEl) timeEl.textContent = '暂无文件';
         }
+
+        return fileCount;
     }
 
     // 加载配置到表单
