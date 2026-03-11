@@ -296,54 +296,6 @@
     <!-- 返回顶部 -->
     <button class="back-to-top" title="返回顶部">↑</button>
 
-    <!-- Token 配置按钮 -->
-    <button class="config-btn" id="configBtn" title="GitHub 配置">⚙️</button>
-
-    <!-- Token 配置模态框 -->
-    <div class="modal" id="configModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>GitHub 配置</h3>
-                <button class="modal-close" id="closeConfigModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="config-status" id="configStatus"></div>
-                <div class="form-group">
-                    <label for="githubOwner">仓库所有者 (用户名/组织名)</label>
-                    <input type="text" id="githubOwner" placeholder="例如: your-username">
-                </div>
-                <div class="form-group">
-                    <label for="githubRepo">仓库名称</label>
-                    <input type="text" id="githubRepo" placeholder="例如: robot_web">
-                </div>
-                <div class="form-group">
-                    <label for="githubToken">Personal Access Token</label>
-                    <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
-                    <small class="form-hint">
-                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=机械设计大赛网站" target="_blank">
-                            点击这里生成 Token
-                        </a>
-                        （需要勾选 repo 权限）
-                    </small>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="saveConfig">保存配置</button>
-                    <button class="btn btn-danger" id="clearConfig">清除配置</button>
-                </div>
-                <div class="config-guide">
-                    <h4>配置说明</h4>
-                    <ol>
-                        <li>访问 GitHub Settings → Developer settings → Personal access tokens</li>
-                        <li>点击 "Generate new token (classic)"</li>
-                        <li>勾选 "repo" 权限（完整仓库访问）</li>
-                        <li>生成后复制 Token 粘贴到上方输入框</li>
-                        <li>Token 仅保存在您的浏览器本地，不会上传到服务器</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- 文件列表模态框 -->
     <div class="modal" id="fileListModal">
         <div class="modal-content modal-large">

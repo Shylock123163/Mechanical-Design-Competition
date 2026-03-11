@@ -155,27 +155,16 @@ galleryItems.forEach(item => {
 });
 
 // ===== 控制台欢迎信息 =====
-console.log('%c机械设计大赛团队资料库', 'color: #2563eb; font-size: 24px; font-weight: bold;');
-console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;');
+console.log('%c514专业人士分队', 'color: #58a6ff; font-size: 24px; font-weight: bold;');
+console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;');
 
 // ===== GitHub 文件管理功能 =====
 (function() {
     // DOM 元素
-    const configBtn = document.getElementById('configBtn');
-    const configModal = document.getElementById('configModal');
-    const closeConfigModal = document.getElementById('closeConfigModal');
     const fileListModal = document.getElementById('fileListModal');
     const closeFileListModal = document.getElementById('closeFileListModal');
     const uploadModal = document.getElementById('uploadModal');
     const toast = document.getElementById('toast');
-
-    // 表单元素
-    const githubOwner = document.getElementById('githubOwner');
-    const githubRepo = document.getElementById('githubRepo');
-    const githubToken = document.getElementById('githubToken');
-    const saveConfigBtn = document.getElementById('saveConfig');
-    const clearConfigBtn = document.getElementById('clearConfig');
-    const configStatus = document.getElementById('configStatus');
 
     // 文件列表元素
     const fileListTitle = document.getElementById('fileListTitle');
@@ -196,40 +185,12 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
 
     // 初始化
     function init() {
-        updateConfigButton();
-        loadConfigToForm();
         bindEvents();
-        loadAllDirectoryStats(); // 加载所有目录统计
-    }
-
-    // 更新配置按钮状态
-    function updateConfigButton() {
-        if (githubAPI.isConfigured()) {
-            configBtn.classList.add('configured');
-            configBtn.title = 'GitHub 已配置';
-            loadAllDirectoryStats(); // 配置成功后刷新统计
-        } else {
-            configBtn.classList.remove('configured');
-            configBtn.title = 'GitHub 配置';
-        }
+        loadAllDirectoryStats();
     }
 
     // 加载所有目录的统计信息
     async function loadAllDirectoryStats() {
-        if (!githubAPI.isConfigured()) {
-            // 未配置时显示提示
-            document.querySelectorAll('.file-count').forEach(el => {
-                el.textContent = '请先配置';
-            });
-            document.querySelectorAll('.update-time').forEach(el => {
-                el.textContent = '';
-            });
-            // 首页统计显示默认值
-            const statFiles = document.getElementById('statFiles');
-            if (statFiles) statFiles.textContent = '0';
-            return;
-        }
-
         const paths = ['files/design', 'files/bom', 'files/code', 'files/docs', 'files/media', 'files/ppt'];
         let totalFiles = 0;
 
@@ -263,23 +224,8 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         return fileCount;
     }
 
-    // 加载配置到表单
-    function loadConfigToForm() {
-        githubOwner.value = githubAPI.owner || '';
-        githubRepo.value = githubAPI.repo || '';
-        githubToken.value = githubAPI.token || '';
-    }
-
     // 绑定事件
     function bindEvents() {
-        // 配置按钮
-        configBtn.addEventListener('click', () => openModal(configModal));
-        closeConfigModal.addEventListener('click', () => closeModal(configModal));
-
-        // 保存配置
-        saveConfigBtn.addEventListener('click', saveConfig);
-        clearConfigBtn.addEventListener('click', clearConfig);
-
         // 文件列表模态框
         closeFileListModal.addEventListener('click', () => closeModal(fileListModal));
 
@@ -300,29 +246,21 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         document.querySelectorAll('.btn-upload').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const path = e.target.dataset.path;
-                if (!githubAPI.isConfigured()) {
-                    showToast('请先配置 GitHub Token', 'error');
-                    openModal(configModal);
-                    return;
-                }
                 currentPath = path;
                 fileInput.click();
             });
         });
 
         // 点击模态框外部关闭
-        [configModal, fileListModal].forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
+        fileListModal.addEventListener('click', (e) => {
+            if (e.target === fileListModal) {
+                closeModal(fileListModal);
+            }
         });
 
         // ESC 键关闭模态框
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                closeModal(configModal);
                 closeModal(fileListModal);
             }
         });
@@ -340,59 +278,8 @@ console.log('%c创新设计 · 智造未来', 'color: #64748b; font-size: 14px;'
         document.body.style.overflow = '';
     }
 
-    // 保存配置
-    async function saveConfig() {
-        const owner = githubOwner.value.trim();
-        const repo = githubRepo.value.trim();
-        const token = githubToken.value.trim();
-
-        if (!owner || !repo || !token) {
-            showConfigStatus('请填写所有字段', 'error');
-            return;
-        }
-
-        // 临时保存以验证
-        githubAPI.saveConfig(token, owner, repo);
-
-        // 验证 Token
-        showConfigStatus('正在验证...', 'success');
-        const isValid = await githubAPI.validateToken();
-
-        if (isValid) {
-            showConfigStatus('配置成功！', 'success');
-            updateConfigButton();
-            setTimeout(() => closeModal(configModal), 1000);
-        } else {
-            showConfigStatus('Token 无效，请检查后重试', 'error');
-            githubAPI.clearConfig();
-            updateConfigButton();
-        }
-    }
-
-    // 清除配置
-    function clearConfig() {
-        githubAPI.clearConfig();
-        githubOwner.value = '';
-        githubRepo.value = '';
-        githubToken.value = '';
-        updateConfigButton();
-        showConfigStatus('配置已清除', 'success');
-    }
-
-    // 显示配置状态
-    function showConfigStatus(message, type) {
-        configStatus.textContent = message;
-        configStatus.className = 'config-status ' + type;
-    }
-
     // 打开文件列表
     function openFileList(path, title) {
-        if (!githubAPI.isConfigured()) {
-            showToast('请先配置 GitHub Token', 'error');
-            openModal(configModal);
-            return;
-        }
-
         currentPath = path;
         fileListTitle.textContent = title || '文件列表';
         openModal(fileListModal);
