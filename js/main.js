@@ -321,6 +321,8 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
         const icon = getFileIcon(file.name, file.type);
         const size = file.type === 'file' ? githubAPI.formatFileSize(file.size) : '文件夹';
 
+        const downloadUrl = file.type === 'file' ? githubAPI.getDownloadUrl(file.path) : '';
+
         item.innerHTML = `
             <div class="file-icon">${icon}</div>
             <div class="file-info">
@@ -329,12 +331,11 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
             </div>
             <div class="file-actions">
                 ${file.type === 'file' ? `
-                    <a href="${file.download_url}" download="${file.name}" title="下载">⬇️</a>
-                    <a href="${file.html_url}" target="_blank" title="在 GitHub 查看">🔗</a>
+                    <a href="${downloadUrl}" download="${file.name}" title="下载">⬇️</a>
                 ` : `
                     <button class="btn-folder" data-path="${file.path}" title="打开文件夹">📂</button>
                 `}
-                <button class="btn-delete" data-path="${file.path}" data-sha="${file.sha}" data-name="${file.name}" title="删除">🗑️</button>
+                <button class="btn-delete" data-path="${file.path}" data-name="${file.name}" title="删除">🗑️</button>
             </div>
         `;
 
@@ -352,7 +353,7 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
         const deleteBtn = item.querySelector('.btn-delete');
         deleteBtn.addEventListener('click', () => {
             if (confirm(`确定要删除 "${file.name}" 吗？`)) {
-                deleteFile(file.path, file.sha, file.name);
+                deleteFile(file.path, file.name);
             }
         });
 
@@ -390,12 +391,6 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
-        if (!githubAPI.isConfigured()) {
-            showToast('请先配置 GitHub Token', 'error');
-            openModal(configModal);
-            return;
-        }
-
         // 上传文件
         for (let i = 0; i < files.length; i++) {
             await uploadFile(files[i], i + 1, files.length);
@@ -409,6 +404,7 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
             loadFileList(currentPath);
         }
         loadDirectoryStats(currentPath);
+        loadAllDirectoryStats();
     }
 
     // 上传单个文件
@@ -449,12 +445,13 @@ console.log('%c辐光 · 机械设计大赛', 'color: #8b949e; font-size: 14px;'
     }
 
     // 删除文件
-    async function deleteFile(path, sha, name) {
+    async function deleteFile(path, name) {
         try {
-            await githubAPI.deleteFile(path, sha);
+            await githubAPI.deleteFile(path);
             showToast(`${name} 已删除`, 'success');
             loadFileList(currentPath);
-            loadDirectoryStats(currentPath); // 刷新统计
+            loadDirectoryStats(currentPath);
+            loadAllDirectoryStats();
         } catch (error) {
             showToast('删除失败: ' + error.message, 'error');
         }
